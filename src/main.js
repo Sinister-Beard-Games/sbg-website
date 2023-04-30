@@ -1,10 +1,14 @@
 import { createApp } from "vue";
+import router from "./router/router.js";
 import { StoryblokVue, apiPlugin } from "@storyblok/vue";
 import App from "./App.vue";
 
 const app = createApp(App);
 
-app.use(StoryblokVue, {
-  accessToken: "u3nYmzq16AkG3brA1DyOswtt",
+app
+.use(StoryblokVue, {
+  accessToken: "On63krEoz1rtKmqF4QSMSAtt",
   use: [apiPlugin],
-}).mount('#app')
+})
+.use(router).
+mount('#app')
