@@ -37,7 +37,7 @@ const coverPreview = (game) => {
 <style scoped lang="scss">
 #games_list {
   display: grid;
-  grid-template-columns: repeat( auto-fill, minmax(20rem, 1fr) );
+  grid-template-columns: repeat( auto-fill, minmax(20rem, 20rem) );
   justify-content: center;
   grid-gap:2rem;
   .game_preview {
