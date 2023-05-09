@@ -40,12 +40,17 @@
             <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
         </div>
       </div>
-
-
-
     </div>
     <div class="news">
       <h2>{{ content.news_heading }}</h2>
+      <div class="featured article">
+        <div class="image" :style="`background-image: url(${content.featured_article[0].content.FeaturedImage.filename})`" />
+        <h3>{{ content.featured_article[0].name }}</h3>
+        <div v-html="renderRichText(content.featured_article[0].content.Content)" />
+        <router-link :to="content.featured_article[0].full_slug" class="button">
+           Read on, reader
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +59,7 @@ import {useStoryblok} from "@storyblok/vue";
 import {onMounted, ref} from "vue";
 import HeroCell from "./HeroCell.vue";
 import {useRouter} from 'vue-router';
+import {renderRichText} from "@storyblok/vue";
 
 const content = ref(null)
 const current = ref(0)
@@ -65,8 +71,8 @@ onMounted(
     async () => {
       const response = await useStoryblok(
         "home",
-        {resolve_relations: ["homepage.hero", "homepage.featured_games", "hero_cell.link"]},
-        {resolveRelations: ["homepage.hero", "homepage.featured_games", "hero_cell.link"]}
+        {resolve_relations: ["homepage.hero", "homepage.featured_games", "homepage.featured_article", "hero_cell.link"]},
+        {resolveRelations: ["homepage.hero", "homepage.featured_games", "homepage.featured_article", "hero_cell.link"]}
       )
       content.value = response.value.content
       content.value.featured_games.forEach(
@@ -235,6 +241,8 @@ h2 {
     text-align: left;
     margin-top:-2.5rem;
     margin-left: 9rem;
+    z-index: 31;
+  position: relative;
 }
 
 .heading_container {
@@ -245,5 +253,33 @@ h2 {
   position: absolute;
   max-width: 80rem;
 
+}
+
+.article {
+  color: white;
+  padding: 1rem;
+  display: grid;
+  &.featured {
+    grid-template-areas: "image heading"
+                         "image content"
+                         "button button";
+    grid-template-columns: 15rem 1fr;
+    grid-gap:1.5rem;
+  }
+  .image {
+    grid-area: image;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+  }
+  h3 {
+    grid-area: heading;
+  }
+  a {
+    grid-area: button;
+  }
+  div {
+    grid-area: content;
+  }
 }
 </style>
