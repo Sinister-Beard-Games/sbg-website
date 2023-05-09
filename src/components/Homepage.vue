@@ -24,11 +24,11 @@
       <div class="games_slider">
         <div
             @click="handleGameClick(game.full_slug)" class="game_slide"
-            @mouseenter="setRolloverOpacity(0.6, index)"
+            @mouseenter="setRolloverOpacity(0.3, index)"
             @mouseleave="setRolloverOpacity(0, index)"
             v-for="(game, index) in content.featured_games"
             :key="index"
-            :style="`background-image: linear-gradient( rgba(0, 0, 0, ${rolloverOpacity[index]}), rgba(0, 0, 0, 0) ), url(${game.content.cover_art_plain.filename})`">
+            :style="`background-image: linear-gradient( rgba(255, 255, 255, ${rolloverOpacity[index]}), rgba(255, 255, 255, 0) ), url(${game.content.cover_art_plain.filename})`">
             <img class="logo" :src="game.content.logo.filename" :alt="game.name" />
             <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
         </div>
