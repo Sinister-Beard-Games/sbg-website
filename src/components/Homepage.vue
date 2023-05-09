@@ -21,7 +21,7 @@
         <h1>{{content.games_heading}}</h1>
       </div>
 
-      <div class="games_slider">
+      <div class="games_slider" :class="{loaded: gameSlideLoaded}">
         <div
             @click="handleGameClick(game.full_slug)" class="game_slide"
             @mouseenter="setRolloverOpacity(0.3, index)"
@@ -45,8 +45,9 @@ import { useRouter } from 'vue-router';
 
 const content = ref(null)
 const current = ref(0)
-const rolloverOpacity = ref([0, 0, 0]);
+const rolloverOpacity = ref([]);
 const router = useRouter()
+const gameSlideLoaded = ref(false)
 
 onMounted(
     async () => {
@@ -56,6 +57,15 @@ onMounted(
         {resolveRelations: ["homepage.hero", "homepage.featured_games", "hero_cell.link"]}
       )
       content.value = response.value.content
+      content.value.featured_games.forEach(
+        () => {
+           rolloverOpacity.value.push(0)
+        })
+      setTimeout(
+          () => {
+            gameSlideLoaded.value = true
+          }, 100
+      )
       cycleHero();
     }
 )
@@ -113,6 +123,11 @@ $red-dark: rgb(142, 11, 11);
   .games_slider {
     padding: 5rem;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+     &.loaded {
+        opacity: 1;
+     }
     .game_slide {
       display: inline-grid;
       justify-items: center;
@@ -126,7 +141,8 @@ $red-dark: rgb(142, 11, 11);
       background-position: center;
       position: relative;
       cursor: pointer;
-      transition: background-image .5s ease-in-out;
+
+
       .logo {
         position: absolute;
         margin-bottom:.5rem;
