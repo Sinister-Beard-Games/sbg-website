@@ -27,6 +27,7 @@
           :class="{loaded: gameSlideLoaded}"
           @mousemove="horizontalScroll"
           @mousedown="handleMouseDown"
+          :style="`grid-template-columns: repeat(${content.featured_games.length}, 15rem);`"
       >
         <div
             @click="handleGameClick(game.full_slug)" class="game_slide"
@@ -167,7 +168,6 @@ $red-dark: rgb(142, 11, 11);
     transition: opacity 1s ease-in-out;
     display: grid;
     grid-gap: 1.5rem;
-    grid-template-columns: repeat(10, 15rem);
      &.loaded {
         opacity: 1;
      }
@@ -194,11 +194,11 @@ $red-dark: rgb(142, 11, 11);
          user-select: none;
       }
       .focus_image {
-        width:140%;
+        width:100%;
         opacity: 0;
         position: absolute;
         transition: all .3s ease-in-out;
-        top:3rem;
+        top:2rem;
         z-index: 30;
         pointer-events: none;
          user-select: none;
@@ -209,8 +209,9 @@ $red-dark: rgb(142, 11, 11);
           margin-bottom: 1rem;
         }
         .focus_image {
-            opacity: 1;
-            top:-1.5rem;
+          opacity: 1;
+          top:-1.5rem;
+          width:140%;
         }
       }
     }
