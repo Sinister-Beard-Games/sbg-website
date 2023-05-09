@@ -89,9 +89,6 @@ const cycleHero = () => {
   )
 }
 
-const handleGameClick = (path) => {
-  router.push(path)
-}
 
 const setRolloverOpacity = (opacity, index) => {
   rolloverOpacity.value[index] = opacity
@@ -101,16 +98,15 @@ const slider = ref(null)
 let sliding = false;
 let startX;
 let scrollLeft;
+let activeClick = false
+let clickTimeOut
 
 const horizontalScroll = (e) => {
   if(sliding) {
     e.preventDefault()
     const x = e.pageX - slider.value.offsetLeft;
-    console.log({x})
-    console.log({startX})
     const walk = (x - startX); //scroll-fast
     slider.value.scrollLeft = scrollLeft - walk;
-    console.log(walk);
   }
 }
 
@@ -118,10 +114,22 @@ const handleMouseDown = (e) => {
   sliding = true
   startX = e.pageX - slider.value.offsetLeft;
   scrollLeft = slider.value.scrollLeft;
+  activeClick = true
+  clickTimeOut = setTimeout(
+      () => {
+        activeClick = false
+      }, 500
+  )
 }
 
 const handleMouseUp = () => {
   sliding = false
+}
+
+const handleGameClick = (path) => {
+  if(activeClick) {
+    router.push(path)
+  }
 }
 
 </script>
