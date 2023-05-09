@@ -1,5 +1,9 @@
 <template>
-  <div class="hero" :style="`background-image: url(${cell.content.background.filename})`">
+  <div
+      class="hero"
+      :class="{current: props.current === props.index}"
+      :style="`background-image: url(${cell.content.background.filename})`"
+  >
     <div class="hero_info">
       <img class="logo" :src="cell.content.logo.filename" :alt="cell.content.link.name"/>
       <router-link :to="cell.content.link.full_slug" class="button">
@@ -14,6 +18,14 @@ const props = defineProps({
   "cell": {
     type: Object,
     required: true
+  },
+  current: {
+    type: Number,
+    required: true
+  },
+  index: {
+    type: Number,
+    required: true
   }
 })
 
@@ -23,13 +35,15 @@ const props = defineProps({
   max-width: 100%;
   background-size: 100% auto;
   background-position: center 40%;
-  display: grid;
+  display: none;
   justify-items: center;
   align-content: center;
   aspect-ratio: 22/9;
   transition: background-size .5s ease-in-out;
   clip-path: polygon(0 0, 100% 1%, 100% 66%, 0% 100%);
-
+  &.current {
+    display: grid;
+  }
   &:hover {
     background-size: 110% auto;
   }

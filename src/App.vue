@@ -23,6 +23,7 @@ h1, h2 {
   font-weight: 900;
 }
 
+
 a {
   &.button {
     background-color: $red;

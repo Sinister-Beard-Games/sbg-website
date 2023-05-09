@@ -1,6 +1,13 @@
 <template>
   <div v-if="content">
-    <HeroCell v-for="cell in content.hero" :cell="cell" :key="cell.name"/>
+    <img :src="content.logo.filename" :alt="content.logo.alt" class="site_logo"/>
+    <HeroCell
+        v-for="(cell, index) in content.hero"
+        :cell="cell"
+        :key="cell.name"
+        :current="0"
+        :index="index"
+    />
   </div>
 </template>
 <script setup>
@@ -25,3 +32,13 @@ onMounted(
 
 </script>
 
+<style lang="scss" scoped>
+
+.site_logo {
+  width: 6rem;
+  height: auto;
+  position: absolute;
+  z-index: 101;
+  left:1.5rem;
+}
+</style>
