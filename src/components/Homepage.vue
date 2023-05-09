@@ -22,9 +22,9 @@
       </div>
 
       <div class="games_slider">
-        <div class="game_slide" v-for="game in content.featured_games" :style="`background-image: url(${game.content.cover_art_plain.filename})`">
-          <img class="logo" :src="game.content.logo.filename" :alt="game.name" />
-          <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
+        <div @click="handleGameClick(game.full_slug)" class="game_slide" v-for="game in content.featured_games" :style="`background-image: url(${game.content.cover_art_plain.filename})`">
+            <img class="logo" :src="game.content.logo.filename" :alt="game.name" />
+            <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
         </div>
       </div>
 
@@ -35,10 +35,11 @@
 import {useStoryblok} from "@storyblok/vue";
 import {onMounted, ref} from "vue";
 import HeroCell from "./HeroCell.vue";
+import { useRouter } from 'vue-router';
 
 const content = ref(null)
 const current = ref(0)
-
+const router = useRouter()
 onMounted(
     async () => {
       const response = await useStoryblok(
@@ -62,6 +63,10 @@ const cycleHero = () => {
         cycleHero()
       }, 7500
   )
+}
+
+const handleGameClick = (path) => {
+  router.push(path)
 }
 
 </script>
