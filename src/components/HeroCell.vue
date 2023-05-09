@@ -76,7 +76,7 @@ const nextSlide = computed(
       z-index:21;
     }
     &:hover {
-      background-size: 110% auto;
+      background-size: 110% auto; 
     }
     .hero_info {
       width: 66%;
