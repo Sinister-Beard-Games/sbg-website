@@ -8,7 +8,7 @@ $red: rgb(192, 11, 11);
 $red-dark: rgb(142, 11, 11);
 $grey: rgb(48, 43, 43);
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@900&family=Open+Sans:wght@400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;800&display=swap');
 
 html, body {
   background: $grey;
@@ -20,8 +20,13 @@ html, body {
 }
 
 h1, h2 {
-  font-family: 'Archivo', sans-serif;
-  font-weight: 900;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  margin-top:0;
+  color: white;
+  text-transform: uppercase;
+  font-size: 3rem;
+  line-height: .9em;
 }
 
 

@@ -17,7 +17,10 @@
         class="games"
         :style="`background-image: linear-gradient(rgba(192, 11, 11,.55), rgba(142, 11, 11, .95)), url(${content.background_video.filename});`"
     >
-      Hello world
+      <div class="heading_container">
+        <h1>{{content.games_heading}}</h1>
+      </div>
+
     </div>
   </div>
 </template>
@@ -59,6 +62,7 @@ const cycleHero = () => {
 <style lang="scss" scoped>
 
 $red: rgb(192, 11, 11);
+$red-dark: rgb(142, 11, 11);
 
 .site_logo {
   width: 6rem;
@@ -70,7 +74,7 @@ $red: rgb(192, 11, 11);
 
 .padding {
   background-color: $red;
-  width: 100%;
+  //width: 100%;
   aspect-ratio: 22/9;
   transform: rotate(180deg);
   background-size: cover;
@@ -79,9 +83,21 @@ $red: rgb(192, 11, 11);
 .games {
   margin-top: -2px;
   background-color: $red;
-  width: 100%;
+  //width: 100%;
   aspect-ratio: 22/9;
-  clip-path: polygon(0 0, 100% 0%, 100% 66%, 0% 100%);
+
   background-size: cover;
+  padding: 0rem 3rem;
+  position: relative;
+}
+
+.heading_container {
+  text-align: right;
+  top: -27.5%;
+  right:3rem;
+  z-index:22;
+  position: absolute;
+  max-width: 40rem;
+  text-shadow: -2px -2px 0 $red-dark, 2px -2px 0 $red-dark, -2px 2px 0 $red-dark, 2px 2px 0 $red-dark;
 }
 </style>
