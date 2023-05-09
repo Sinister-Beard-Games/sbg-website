@@ -41,6 +41,11 @@
         </div>
       </div>
 
+
+
+    </div>
+    <div class="news">
+      <h2>{{ content.news_heading }}</h2>
     </div>
   </div>
 </template>
@@ -158,9 +163,9 @@ $red-dark: rgb(142, 11, 11);
 .games {
   margin-top: -2px;
   background-color: $red;
-  aspect-ratio: 22/9;
   background-size: cover;
   position: relative;
+
   .games_slider {
     padding: 5rem 9rem;
     overflow: hidden;
@@ -218,6 +223,20 @@ $red-dark: rgb(142, 11, 11);
   }
 }
 
+h1, h2 {
+    font-size: 6rem;
+    color: transparent;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white;
+  }
+
+h2 {
+    font-size: 5rem;
+    text-align: left;
+    margin-top:-2.5rem;
+    margin-left: 9rem;
+}
+
 .heading_container {
   text-align: right;
   top: -27.5%;
@@ -225,11 +244,6 @@ $red-dark: rgb(142, 11, 11);
   z-index:22;
   position: absolute;
   max-width: 80rem;
-  h1 {
-    font-size: 6rem;
-    color: transparent;
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: white;
-  }
+
 }
 </style>
