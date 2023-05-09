@@ -1,5 +1,5 @@
 <template>
-  <div v-if="content">
+  <div v-if="content" @mouseup="handleMouseUp">
     <img :src="content.logo.filename" :alt="content.logo.alt" class="site_logo"/>
     <HeroCell
         v-for="(cell, index) in content.hero"
@@ -21,7 +21,13 @@
         <h1>{{content.games_heading}}</h1>
       </div>
 
-      <div class="games_slider" :class="{loaded: gameSlideLoaded}">
+      <div
+          class="games_slider"
+          ref="slider"
+          :class="{loaded: gameSlideLoaded}"
+          @mousemove="horizontalScroll"
+          @mousedown="handleMouseDown"
+      >
         <div
             @click="handleGameClick(game.full_slug)" class="game_slide"
             @mouseenter="setRolloverOpacity(0.3, index)"
@@ -41,7 +47,7 @@
 import {useStoryblok} from "@storyblok/vue";
 import {onMounted, ref} from "vue";
 import HeroCell from "./HeroCell.vue";
-import { useRouter } from 'vue-router';
+import {useRouter} from 'vue-router';
 
 const content = ref(null)
 const current = ref(0)
@@ -91,6 +97,33 @@ const setRolloverOpacity = (opacity, index) => {
   rolloverOpacity.value[index] = opacity
 }
 
+const slider = ref(null)
+let sliding = false;
+let startX;
+let scrollLeft;
+
+const horizontalScroll = (e) => {
+  if(sliding) {
+    e.preventDefault()
+    const x = e.pageX - slider.value.offsetLeft;
+    console.log({x})
+    console.log({startX})
+    const walk = (x - startX); //scroll-fast
+    slider.value.scrollLeft = scrollLeft - walk;
+    console.log(walk);
+  }
+}
+
+const handleMouseDown = (e) => {
+  sliding = true
+  startX = e.pageX - slider.value.offsetLeft;
+  scrollLeft = slider.value.scrollLeft;
+}
+
+const handleMouseUp = () => {
+  sliding = false
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -118,22 +151,23 @@ $red-dark: rgb(142, 11, 11);
   background-color: $red;
   aspect-ratio: 22/9;
   background-size: cover;
-  padding: 0rem 3rem;
   position: relative;
   .games_slider {
-    padding: 5rem;
+    padding: 5rem 9rem;
     overflow: hidden;
     opacity: 0;
     transition: opacity 1s ease-in-out;
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: repeat(10, 15rem);
      &.loaded {
         opacity: 1;
      }
     .game_slide {
-      display: inline-grid;
+      display: grid;
       justify-items: center;
       align-items: end;
-      margin-right:2rem;
-      width:15rem;
+      width:100%;
       background-size: cover;
       background-color: white;
       border-radius: .75rem;
@@ -141,14 +175,15 @@ $red-dark: rgb(142, 11, 11);
       background-position: center;
       position: relative;
       cursor: pointer;
-
-
+       user-select: none;
       .logo {
         position: absolute;
         margin-bottom:.5rem;
         width: 75%;
         transition: all .2s ease-in-out;
-        z-index: 31
+        z-index: 31;
+        pointer-events: none;
+         user-select: none;
       }
       .focus_image {
         width:140%;
@@ -156,7 +191,9 @@ $red-dark: rgb(142, 11, 11);
         position: absolute;
         transition: all .3s ease-in-out;
         top:3rem;
-        z-index: 30
+        z-index: 30;
+        pointer-events: none;
+         user-select: none;
       }
       &:hover {
         .logo {
