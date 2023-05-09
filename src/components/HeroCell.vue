@@ -3,7 +3,7 @@
     <div
         class="hero"
         :class="{current: currentSlide, next: nextSlide}"
-        :style="`background-image: url(${cell.content.background.filename})`"
+        :style="`background-image: linear-gradient(rgba(48, 43, 43,0), rgba(0, 0, 0, .75)), url(${cell.content.background.filename})`"
     >
       <div class="hero_info">
         <img class="logo" :src="cell.content.logo.filename" :alt="cell.content.link.name"/>
