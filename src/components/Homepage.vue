@@ -22,7 +22,13 @@
       </div>
 
       <div class="games_slider">
-        <div @click="handleGameClick(game.full_slug)" class="game_slide" v-for="game in content.featured_games" :style="`background-image: url(${game.content.cover_art_plain.filename})`">
+        <div
+            @click="handleGameClick(game.full_slug)" class="game_slide"
+            @mouseenter="setRolloverOpacity(0.6, index)"
+            @mouseleave="setRolloverOpacity(0, index)"
+            v-for="(game, index) in content.featured_games"
+            :key="index"
+            :style="`background-image: linear-gradient( rgba(0, 0, 0, ${rolloverOpacity[index]}), rgba(0, 0, 0, 0) ), url(${game.content.cover_art_plain.filename})`">
             <img class="logo" :src="game.content.logo.filename" :alt="game.name" />
             <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
         </div>
@@ -39,7 +45,9 @@ import { useRouter } from 'vue-router';
 
 const content = ref(null)
 const current = ref(0)
+const rolloverOpacity = ref([0, 0, 0]);
 const router = useRouter()
+
 onMounted(
     async () => {
       const response = await useStoryblok(
@@ -67,6 +75,10 @@ const cycleHero = () => {
 
 const handleGameClick = (path) => {
   router.push(path)
+}
+
+const setRolloverOpacity = (opacity, index) => {
+  rolloverOpacity.value[index] = opacity
 }
 
 </script>
@@ -114,12 +126,13 @@ $red-dark: rgb(142, 11, 11);
       background-position: center;
       position: relative;
       cursor: pointer;
-
+      transition: background-image .5s ease-in-out;
       .logo {
         position: absolute;
         margin-bottom:.5rem;
         width: 75%;
         transition: all .2s ease-in-out;
+        z-index: 31
       }
       .focus_image {
         width:140%;
@@ -127,6 +140,7 @@ $red-dark: rgb(142, 11, 11);
         position: absolute;
         transition: all .3s ease-in-out;
         top:3rem;
+        z-index: 30
       }
       &:hover {
         .logo {
