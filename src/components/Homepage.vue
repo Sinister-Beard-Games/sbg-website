@@ -43,20 +43,32 @@
     </div>
     <div class="news">
       <h2>{{ content.news_heading }}</h2>
-      <div class="featured article">
-        <div class="image" :style="`background-image: url(${content.featured_article[0].content.FeaturedImage.filename})`" />
-        <h3>{{ content.featured_article[0].name }}</h3>
-        <div v-html="renderRichText(content.featured_article[0].content.Content)" />
-        <router-link :to="content.featured_article[0].full_slug" class="button">
-           Read on, reader
-        </router-link>
+      <div class="articles">
+        <div class="featured article">
+          <div class="image" :style="`background-image: url(${featuredArticle.content.FeaturedImage.filename})`" />
+          <h3>{{featuredArticle.name }}</h3>
+          <div v-html="renderRichText(featuredArticle.content.preview)" />
+          <router-link :to="featuredArticle.full_slug" class="button">
+             Read on, reader
+          </router-link>
+        </div>
+        <div class="other_articles">
+          <div class="article" v-for="article in otherArticles">
+            <div class="image" :style="`background-image: url(${article.content.FeaturedImage.filename})`" />
+            <h3>{{article.name }}</h3>
+            <div v-html="renderRichText(article.content.preview)" />
+            <router-link :to="article.full_slug" class="button">
+               More
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
 import {useStoryblok} from "@storyblok/vue";
-import {onMounted, ref} from "vue";
+import {onMounted, ref, computed} from "vue";
 import HeroCell from "./HeroCell.vue";
 import {useRouter} from 'vue-router';
 import {renderRichText} from "@storyblok/vue";
@@ -144,7 +156,30 @@ const handleGameClick = (path) => {
   }
 }
 
+const featuredArticle = computed(() => {
+  return content.value.featured_article[0]
+})
+
+const otherArticles = computed(
+  () => {
+    return content.value.featured_article.slice(1)
+  }
+)
+
 </script>
+
+<style lang="scss">
+
+    .article {
+      &.featured {
+        p {
+          padding: 0;
+          margin:0;
+        }
+      }
+    }
+
+</style>
 
 <style lang="scss" scoped>
 
@@ -241,8 +276,9 @@ h2 {
     text-align: left;
     margin-top:-2.5rem;
     margin-left: 9rem;
+    margin-bottom: 1.5rem;
     z-index: 31;
-  position: relative;
+    position: relative;
 }
 
 .heading_container {
@@ -254,32 +290,56 @@ h2 {
   max-width: 80rem;
 
 }
+.news {
+  .articles {
+    padding: 0 8rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap:2rem;
+      p {
+        padding: 0;
+        margin:0;
+      }
+    .article {
+      color: white;
+      padding: 1rem;
+      display: grid;
+      justify-content: left;
+      justify-items: left;
+      align-content: start;
+      grid-template-areas: "heading"
+                           "content"
+                           "button";
+      &.featured {
+        grid-template-areas: "heading heading"
+                             "image content"
+                             "image button";
+        grid-template-columns: 1fr 1fr;
+        grid-gap:1.5rem;
+        h3 {
+          font-size: 3rem;
+        }
+      }
+      .image {
+        grid-area: image;
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+      }
+      h3 {
+        grid-area: heading;
+        margin:0;
+        font-size: 2rem;
+      }
+      a {
+        grid-area: button;
+      }
+      div {
+        grid-area: content;
+      }
+    }
+  }
 
-.article {
-  color: white;
-  padding: 1rem;
-  display: grid;
-  &.featured {
-    grid-template-areas: "image heading"
-                         "image content"
-                         "button button";
-    grid-template-columns: 15rem 1fr;
-    grid-gap:1.5rem;
-  }
-  .image {
-    grid-area: image;
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-  }
-  h3 {
-    grid-area: heading;
-  }
-  a {
-    grid-area: button;
-  }
-  div {
-    grid-area: content;
-  }
 }
+
 </style>

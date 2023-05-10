@@ -19,7 +19,7 @@ html, body {
   font-weight: 400;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: 'Open Sans', sans-serif;
   font-weight: 800;
   margin-top:0;
