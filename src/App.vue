@@ -1,6 +1,26 @@
 <template>
+  <header>
+    <img :src="content.logo.filename" :alt="content.logo.alt" class="site_logo"/>
+  </header>
   <router-view />
+  <footer>footer</footer>
 </template>
+
+<script setup>
+import {onMounted, ref} from "vue";
+import {useStoryblok} from "@storyblok/vue";
+const content = ref(null)
+onMounted(
+    async () => {
+      const response = await useStoryblok(
+          "site-settings",
+          {resolve_relations: ["site_settings.social_links", "site_settings.other_links"]},
+          {resolveRelations: ["site_settings.social_links", "site_settings.other_links"]}
+      )
+      content.value = response.value.content
+    }
+)
+</script>
 
 <style lang="scss">
 
@@ -29,7 +49,6 @@ h1, h2, h3 {
   line-height: .9em;
 }
 
-
 a {
   &.button {
     background-color: $red;
@@ -46,5 +65,13 @@ a {
       background-color: $red-dark;
     }
   }
+}
+
+.site_logo {
+  width: 6rem;
+  height: auto;
+  position: fixed;
+  z-index: 101;
+  left:1.5rem;
 }
 </style>

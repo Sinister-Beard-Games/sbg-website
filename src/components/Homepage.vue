@@ -1,6 +1,6 @@
 <template>
   <div v-if="content" @mouseup="handleMouseUp">
-    <img :src="content.logo.filename" :alt="content.logo.alt" class="site_logo"/>
+
     <HeroCell
         v-for="(cell, index) in content.hero"
         :cell="cell"
@@ -185,14 +185,6 @@ const otherArticles = computed(
 
 $red: rgb(192, 11, 11);
 $red-dark: rgb(142, 11, 11);
-
-.site_logo {
-  width: 6rem;
-  height: auto;
-  position: fixed;
-  z-index: 101;
-  left:1.5rem;
-}
 
 .padding {
   background-color: $red;
