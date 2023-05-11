@@ -99,7 +99,7 @@ a {
 
 footer {
   padding: 1rem;
-
+  color: rgb(255, 255, 255);
   .social_link {
     width: 2rem; height: 2rem;
     display: inline-block;

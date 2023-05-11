@@ -1,5 +1,5 @@
 <template>
-  <div v-if="content" @mouseup="handleMouseUp">
+  <div v-if="content" @mouseup="handleMouseUp" @touchend="handleMouseDown">
 
     <HeroCell
         v-for="(cell, index) in content.hero"
@@ -27,6 +27,8 @@
           :class="{loaded: gameSlideLoaded}"
           @mousemove="horizontalScroll"
           @mousedown="handleMouseDown"
+          @touchstart="handleMouseDown"
+          @touchmove="horizontalScroll"
           :style="`grid-template-columns: repeat(${content.featured_games.length}, 15rem);`"
       >
         <div
