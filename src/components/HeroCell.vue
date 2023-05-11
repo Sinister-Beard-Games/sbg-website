@@ -8,7 +8,12 @@
       <div class="hero_info">
         <img class="logo" :src="cell.content.logo.filename" :alt="cell.content.link.name"/>
         <router-link :to="cell.content.link.full_slug" class="button">
-          {{cell.content.link_text}}
+          <span class="desktop_text">
+            {{cell.content.link_text}}
+          </span>
+          <span class="mobile_text">
+            More info
+          </span>
         </router-link>
       </div>
     </div>
@@ -71,12 +76,17 @@ const nextSlide = computed(
     opacity: 0;
     top:0;
     z-index: 20;
+    @media (max-width: 50rem) {
+      clip-path: polygon(0 0, 100% 0%, 100% 85%, 0% 100%);
+      justify-items: right;
+      margin-right:1rem;
+    }
     &.current {
       opacity: 100;
       z-index:21;
     }
     &:hover {
-      background-size: 110% auto; 
+      background-size: 110% auto;
     }
     .hero_info {
       width: 66%;
@@ -85,12 +95,34 @@ const nextSlide = computed(
       justify-items: center;
       align-content: center;
       margin-top: -7.5%;
+      @media (max-width: 50rem) {
+        margin-right:1.5rem;
+
+      }
       .logo {
         max-width: 45rem;
-        width: 100%
+        width: 100%;
+        @media (max-width: 50rem) {
+          width: calc(100% - 5rem);
+        }
       }
     }
   }
 }
+
+.desktop_text{
+  display: none;
+  @media (min-width: 30rem) {
+    display: block;
+  }
+}
+
+.mobile_text{
+  display: none;
+  @media (max-width: 30rem) {
+    display: block;
+  }
+}
+
 
 </style>

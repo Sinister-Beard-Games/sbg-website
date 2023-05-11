@@ -1,13 +1,22 @@
 <template>
-  <header>
-    <img :src="content.logo.filename" :alt="content.logo.alt" class="site_logo"/>
-  </header>
-  <router-view />
-  <footer>footer</footer>
+  <div v-if="content">
+    <header>
+      <img :src="content.logo.filename" :alt="content.logo.alt" class="site_logo"/>
+    </header>
+    <router-view />
+    <footer>
+      <div v-for="link in content.social_links" class="social_link">
+        <router-link :to="link.content.link">
+          <img :src="link.content.logo.filename" />
+        </router-link>
+      </div>
+      <p>{{copyrightText}}</p>
+    </footer>
+  </div>
 </template>
 
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, ref, computed} from "vue";
 import {useStoryblok} from "@storyblok/vue";
 const content = ref(null)
 onMounted(
@@ -18,8 +27,15 @@ onMounted(
           {resolveRelations: ["site_settings.social_links", "site_settings.other_links"]}
       )
       content.value = response.value.content
+      console.log(content)
     }
 )
+
+const copyrightText = computed(()=> {
+  const year = new Date().getFullYear()
+  return content.value.copyright_text.replaceAll("#current_year#", year)
+})
+
 </script>
 
 <style lang="scss">
@@ -37,6 +53,9 @@ html, body {
   font-size: 16px;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
+  @media (max-width: 60rem) {
+    font-size: 14px;
+  }
 }
 
 h1, h2, h3 {
@@ -73,5 +92,22 @@ a {
   position: fixed;
   z-index: 101;
   left:1.5rem;
+  @media (max-width: 50rem) {
+      position: absolute;
+  }
+}
+
+footer {
+  padding: 1rem;
+
+  .social_link {
+    width: 2rem; height: 2rem;
+    display: inline-block;
+    margin-right: 1rem;
+    img {
+      width: 100%;
+    }
+  }
+
 }
 </style>

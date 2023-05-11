@@ -206,6 +206,9 @@ $red-dark: rgb(142, 11, 11);
     transition: opacity 1s ease-in-out;
     display: grid;
     grid-gap: 1.5rem;
+    @media (max-width: 50rem) {
+      padding: 2rem;
+    }
      &.loaded {
         opacity: 1;
      }
@@ -261,6 +264,15 @@ h1, h2 {
     color: transparent;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: white;
+    @media (max-width: 72rem) {
+      font-size: 5rem
+    }
+    @media (max-width: 65rem) {
+      font-size: 4rem
+    }
+    @media (max-width: 50rem) {
+      display: none;
+    }
   }
 
 h2 {
@@ -271,6 +283,10 @@ h2 {
     margin-bottom: 1.5rem;
     z-index: 31;
     position: relative;
+    @media (max-width: 65rem) {
+      font-size: 3rem;
+      margin-top:-1.5rem;
+    }
 }
 
 .heading_container {
@@ -279,7 +295,13 @@ h2 {
   right:5rem;
   z-index:22;
   position: absolute;
-  max-width: 80rem;
+  max-width: calc(100% - 8rem);
+  @media (min-width: 80rem) {
+    max-width: 80rem;
+  }
+  @media (max-width: 60rem) {
+    top: -4rem;
+  }
 
 }
 .news {
@@ -287,11 +309,29 @@ h2 {
     padding: 0 8rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-areas: "featured other";
     grid-gap:2rem;
-      p {
-        padding: 0;
-        margin:0;
+    @media (max-width: 50rem) {
+      padding: 0 2rem;
+    }
+    @media (max-width: 95rem) {
+      grid-template-areas: "featured featured"
+                           "other other";
+    }
+    p {
+      padding: 0;
+      margin:0;
+    }
+
+    .other_articles {
+      grid-area: other;
+      @media (max-width: 95rem) and (min-width: 60rem) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap:1rem;
       }
+    }
+
     .article {
       color: white;
       padding: 1rem;
@@ -308,8 +348,19 @@ h2 {
                              "image button";
         grid-template-columns: 1fr 1fr;
         grid-gap:1.5rem;
+        grid-area: featured;
         h3 {
           font-size: 3rem;
+           @media (max-width: 60rem) {
+            font-size: 2rem
+          }
+        }
+        @media (max-width: 60rem) {
+          grid-template-areas: "heading"
+                               "image"
+                               "content"
+                               "button";
+          grid-template-columns: 1fr;
         }
       }
       .image {
@@ -317,6 +368,9 @@ h2 {
         background-size: cover;
         background-position: center;
         width: 100%;
+        @media (max-width: 60rem) {
+          aspect-ratio: 16/9;
+        }
       }
       h3 {
         grid-area: heading;
