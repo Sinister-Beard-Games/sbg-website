@@ -62,6 +62,9 @@ html, body {
   @media (max-width: 60rem) {
     font-size: 14px;
   }
+  @media (min-width: 120rem) {
+    font-size: 1.1rem
+  }
 }
 
 .site_content {
@@ -84,6 +87,10 @@ h1, h2, h3 {
 }
 
 a {
+  color: white;
+  &:hover {
+    color: $red;
+  }
   &.button {
     background-color: $red;
     color: white;
@@ -97,6 +104,7 @@ a {
     transition: background-color .25s ease-in-out;
     &:hover {
       background-color: $red-dark;
+      color: white;
     }
   }
 }
