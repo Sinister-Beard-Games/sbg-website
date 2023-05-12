@@ -152,10 +152,7 @@ h1, h2 {
     color: transparent;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: white;
-    @media (max-width: 72rem) {
-      font-size: 5rem
-    }
-    @media (max-width: 65rem) {
+    @media (max-width: 80rem) {
       font-size: 4rem
     }
     @media (max-width: 50rem) {

@@ -45,11 +45,18 @@ const description = computed(() => renderRichText(game.description));
   grid-template-columns: 1fr 1fr;
   padding: 5rem 9rem;
   grid-gap:2.5rem;
+  @media (max-width: 65rem) {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
   .game_art {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
     align-content: start;
+    @media (max-width: 35rem) {
+      grid-template-columns: 1fr;
+    }
     img {
       max-width: 100%;
     }
@@ -60,6 +67,9 @@ const description = computed(() => renderRichText(game.description));
     grid-gap: 1rem;
     justify-content: left;
     margin-top: 2.5rem;
+    @media (max-width: 72rem) {
+      grid-template-columns: 1fr;
+    }
     a {
       font-weight: 400;
       text-transform: none;
