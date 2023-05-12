@@ -16,16 +16,22 @@
       </div>
     </div>
     <div class="game_art">
-      <img :src="game.cover_art.filename" alt="" />
-      <img v-for="screenshot in game.screenshots" :src="screenshot.filename" alt="" />
+      <img @click="setScreenshot(game.cover_art.filename)" class="screenshot" :src="game.cover_art.filename" :alt="`Cover art from ${game.title}`" />
+      <img @click="setScreenshot(screenshot.filename)" class="screenshot" v-for="screenshot in game.screenshots" :src="screenshot.filename" :alt="`Example pages from ${game.title}`" />
     </div>
+  </div>
+  <div @click="clearOverlay" class="screenshot_overlay" :class="{visible: overlayVisible}">
+    <img :src="currentScreenshot" />
   </div>
 
 </template>
 <script setup>
-import {computed} from "vue";
+import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
 import GameHero from "./GameHero.vue";
+
+const currentScreenshot = ref(null)
+const overlayVisible = ref(false)
 
 const props = defineProps({
   game: {
@@ -35,9 +41,51 @@ const props = defineProps({
 })
 const game = props.game
 const description = computed(() => renderRichText(game.description));
+
+const setScreenshot = (v) => {
+  currentScreenshot.value = v
+  overlayVisible.value = true
+}
+
+const clearOverlay = () => {
+  overlayVisible.value = false
+}
+
 </script>
 
 <style lang="scss" scoped>
+
+.screenshot {
+  cursor: pointer;
+  transition: all .1s ease-in-out;
+  &:hover {
+    transform: scale(1.15);
+    box-shadow: rgba(0,0,0,.5) 0 0 2rem;
+  }
+}
+
+.screenshot_overlay {
+  position: fixed;
+  top:0;
+  z-index:1000;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.4);
+  backdrop-filter: blur(.5rem);
+  display: grid;
+  opacity: 0;
+  pointer-events: none;
+  &.visible {
+    pointer-events: all;
+    opacity: 1;
+  }
+  img {
+    max-width: 80vw;
+    max-height: 80vh;
+  }
+}
 
 .game_content {
   color: white;

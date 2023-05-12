@@ -1,16 +1,12 @@
 <template>
-
     <div
         class="hero"
         :style="`background-image: linear-gradient(rgba(48, 43, 43,0), rgba(48, 43, 43, .85)), url(${game.cover_art_plain.filename})`"
     >
       <div class="hero_info">
-        <img class="logo" :src="game.logo.filename" :alt="game.name"/>
+        <img class="logo" :src="game.logo.filename" :alt="game.title"/>
       </div>
     </div>
-
-
-
 </template>
 <script setup>
 
