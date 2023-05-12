@@ -6,9 +6,9 @@
     <router-view />
     <footer>
       <div v-for="link in content.social_links" class="social_link">
-        <router-link :to="link.content.link">
+        <a :href="link.content.link" target="_blank">
           <img :src="link.content.logo.filename" />
-        </router-link>
+        </a>
       </div>
       <p>{{copyrightText}}</p>
     </footer>
