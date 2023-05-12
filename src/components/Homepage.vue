@@ -130,7 +130,8 @@ let clickTimeOut
 const horizontalScroll = (e) => {
   if(sliding) {
     e.preventDefault()
-    const x = e.pageX - slider.value.offsetLeft;
+    const pageX = e.pageX ? e.pageX : Math.round(e.changedTouches[0].clientX)
+    const x = pageX - slider.value.offsetLeft;
     const walk = (x - startX); //scroll-fast
     slider.value.scrollLeft = scrollLeft - walk;
   }
@@ -138,7 +139,8 @@ const horizontalScroll = (e) => {
 
 const handleMouseDown = (e) => {
   sliding = true
-  startX = e.pageX - slider.value.offsetLeft;
+  const pageX = e.pageX ? e.pageX : Math.round(e.changedTouches[0].clientX)
+  startX = pageX - slider.value.offsetLeft;
   scrollLeft = slider.value.scrollLeft;
   activeClick = true
   clickTimeOut = setTimeout(
