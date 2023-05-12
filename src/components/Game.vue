@@ -1,15 +1,13 @@
 <template>
-  <pre>GAME COMPONENT</pre>
-  <div>
-    <h1>{{game.title}}</h1>
-    <p class="subtitle">{{game.subtitle}}</p>
-    <div v-html="description"/>
-    <pre>{{game}}</pre>
+  <GameHero :game="game" />
+  <div class="heading_container">
+    <h1>{{game.subtitle}}</h1>
   </div>
 </template>
 <script setup>
 import {computed} from "vue";
 import {renderRichText} from "@storyblok/vue";
+import GameHero from "./GameHero.vue";
 
 const props = defineProps({
   game: {
