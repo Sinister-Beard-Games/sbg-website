@@ -43,12 +43,13 @@ const description = computed(() => renderRichText(game.description));
   color: white;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 5rem 8rem;
+  padding: 5rem 9rem;
   grid-gap:2.5rem;
   .game_art {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 1rem;
+    align-content: start;
     img {
       max-width: 100%;
     }

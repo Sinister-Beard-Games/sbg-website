@@ -74,6 +74,7 @@ html, body {
   grid-template-rows: 1fr auto;
   background-color: $grey;
   background-image: linear-gradient($light-grey, $grey);
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
