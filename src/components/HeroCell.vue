@@ -59,70 +59,14 @@ const nextSlide = computed(
 )
 
 </script>
+
+
 <style lang="scss" scoped>
-.all_slides {
-  background-color: lime;
-  .hero {
-    position: absolute;
-    background-size: 100% auto;
-    background-position: center 40%;
-    display: grid;
-    justify-items: center;
-    align-content: center;
-    width: 100%;
-    aspect-ratio: 22/9;
-    transition: background-size .5s ease-in-out, opacity 2s ease-in-out;
-    clip-path: polygon(0 0, 100% 0%, 100% 66%, 0% 100%);
-    opacity: 0;
-    top:0;
-    z-index: 20;
-    @media (max-width: 50rem) {
-      clip-path: polygon(0 0, 100% 0%, 100% 85%, 0% 100%);
-      justify-items: right;
-      margin-right:1rem;
-    }
-    &.current {
-      opacity: 100;
-      z-index:21;
-    }
-    &:hover {
-      background-size: 110% auto;
-    }
-    .hero_info {
-      width: 66%;
-      grid-gap: 1rem;
-      display: grid;
-      justify-items: center;
-      align-content: center;
-      margin-top: -7.5%;
-      @media (max-width: 50rem) {
-        margin-right:1.5rem;
 
-      }
-      .logo {
-        max-width: 45rem;
-        width: 100%;
-        @media (max-width: 50rem) {
-          width: calc(100% - 5rem);
-        }
-      }
-    }
-  }
+
+.hero {
+  position: absolute;
+  opacity: 0;
 }
-
-.desktop_text{
-  display: none;
-  @media (min-width: 30rem) {
-    display: block;
-  }
-}
-
-.mobile_text{
-  display: none;
-  @media (max-width: 30rem) {
-    display: block;
-  }
-}
-
 
 </style>
