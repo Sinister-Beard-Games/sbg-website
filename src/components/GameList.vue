@@ -4,7 +4,9 @@
     <h1>{{content.name}}</h1>
   </div>
   <div class="list_container">
-    <pre>{{games}}</pre>
+    <div v-for="game in games" class="game_single" :style="`background-image: url(${game.content.cover_art_plain.filename})`">
+
+    </div>
   </div>
 </template>
 
@@ -39,8 +41,6 @@ onMounted(async ()=>{
   games.value = response.data.stories
 })
 
-
-
 </script >
 
 <style scoped lang="scss">
@@ -49,9 +49,13 @@ onMounted(async ()=>{
   color: white;
   display: grid;
   padding: 5rem 9rem;
-  grid-gap: 2.5rem;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)  );
   @media (max-width: 50rem) {
     padding: 2rem;
   }
 }
+
+
+
 </style>

@@ -223,50 +223,7 @@ $red-dark: rgb(142, 11, 11);
      &.loaded {
         opacity: 1;
      }
-    .game_slide {
-      display: grid;
-      justify-items: center;
-      align-items: end;
-      width:100%;
-      background-size: cover;
-      background-color: white;
-      border-radius: .75rem;
-      aspect-ratio: 3/4;
-      background-position: center;
-      position: relative;
-      cursor: pointer;
-       user-select: none;
-      .logo {
-        position: absolute;
-        margin-bottom:.5rem;
-        width: 75%;
-        transition: all .2s ease-in-out;
-        z-index: 31;
-        pointer-events: none;
-         user-select: none;
-      }
-      .focus_image {
-        width:100%;
-        opacity: 0;
-        position: absolute;
-        transition: all .3s ease-in-out;
-        top:2rem;
-        z-index: 30;
-        pointer-events: none;
-         user-select: none;
-      }
-      &:hover {
-        .logo {
-          width: 95%;
-          margin-bottom: 1rem;
-        }
-        .focus_image {
-          opacity: 1;
-          top:-1.5rem;
-          width:140%;
-        }
-      }
-    }
+
   }
 }
 
