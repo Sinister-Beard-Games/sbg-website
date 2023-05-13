@@ -1,6 +1,7 @@
-<template ref="game_container">
-  <GameList :key="`list_${content._uid}`" v-if="content && listView" :content="content" />
-  <Game :key="`game_${content._uid}`" v-else-if="content" :game="content"/>
+
+<template ref="posts_container">
+  <PostList :key="`list_${content._uid}`" v-if="content && listView" :content="content" />
+  <Post :key="`post_${content._uid}`" v-else-if="content" :post="content"/>
   <FourOhFour v-else-if="error" />
   <Loading v-else />
 </template>
@@ -9,10 +10,10 @@
 import {onMounted, ref, watch} from "vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router"
-import Game from "@/components/Game.vue";
 import FourOhFour from "@/components/FourOhFour.vue"
 import Loading from "@/components/Loading.vue"
-import GameList from "@/components/GameList.vue";
+import PostList from "./PostList.vue";
+import Post from "./Post.vue";
 
 const listView = ref(false)
 const content = ref(null)
@@ -21,22 +22,17 @@ const route = useRoute()
 
 const refreshPage = async () => {
   const splitRoute = route.path.split("/").filter( route_element => route_element )
-  // console.log("HELLO WOELD")
-  // console.log(route.path)
-  listView.value = splitRoute[splitRoute.length-1] === "games"
-  console.log(listView.value)
+  listView.value = splitRoute[splitRoute.length-1] === "posts"
   try {
-    const response = await useStoryblok(
-        route.path,
-        {resolve_relations: ["page.attachments"]},
-        {resolveRelations: ["page.attachments"]})
+    const response = await useStoryblok(route.path)
     content.value = response.value
-    console.log(content.value.component)
+    console.log(content.value)
   }
   catch(e) {
     error.value = e
   }
 }
+
 
 watch(
     () => route.path,
@@ -48,6 +44,7 @@ watch(
     },
     { immediate: true }
 )
+
 
 </script>
 
