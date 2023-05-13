@@ -21,15 +21,12 @@ const route = useRoute()
 
 const refreshPage = async () => {
   const splitRoute = route.path.split("/").filter( route_element => route_element )
-  // console.log("HELLO WOELD")
-  // console.log(route.path)
   listView.value = splitRoute[splitRoute.length-1] === "games"
   console.log(listView.value)
   try {
     const response = await useStoryblok(
-        route.path,
-        {resolve_relations: ["page.attachments"]},
-        {resolveRelations: ["page.attachments"]})
+        route.path.replace(/^\/|\/$/g, '')
+    )
     content.value = response.value
     console.log(content.value.component)
   }
@@ -51,3 +48,10 @@ watch(
 
 </script>
 
+
+<style>
+pre {
+  background-color: deeppink;
+  color: white;
+}
+</style>

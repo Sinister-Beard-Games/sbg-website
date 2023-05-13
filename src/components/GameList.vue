@@ -1,24 +1,23 @@
 <template>
-  <pre>LIST COMPONENT</pre>
-
-  <h1>{{ content.title }}</h1>
-   <div v-html="description"/>
-
-   <div id="games_list">
-     <router-link :to="game.slug" v-for="game in content.attachments">
-       <div
-         class="game_preview"
-         :style="`background-image: url('${coverPreview(game)}')`"
-       >
-         <h2>{{game.name}}</h2>
-       </div>
-     </router-link>
-   </div>
+  <SimpleHero :featuredImage="props.content.content.hero_image.filename" />
+  <div class="heading_container">
+    <h1>{{content.name}}</h1>
+  </div>
+  <div class="list_container">
+    <pre>{{games}}</pre>
+  </div>
 </template>
 
 <script setup>
-import {computed} from "vue";
-import {renderRichText} from "@storyblok/vue";
+
+import SimpleHero from "./SimpleHero.vue";
+import {computed, onMounted, ref} from "vue";
+import {renderRichText, useStoryblok} from "@storyblok/vue";
+import StoryblokClient from "storyblok-js-client";
+
+const Storyblok = new StoryblokClient({
+  accessToken: "On63krEoz1rtKmqF4QSMSAtt",
+});
 
 const props = defineProps({
   content: {
@@ -26,25 +25,33 @@ const props = defineProps({
     required: true
   }
 })
-const content = props.content
-const description = computed(() => renderRichText(content.content));
-const coverPreview = (game) => {
-  return game.content.cover_preview.filename ? game.content.cover_preview.filename : game.content.cover_full.filename
-}
+
+const games = ref(null)
+
+onMounted(async ()=>{
+  const response = await Storyblok.get(
+      "cdn/stories",
+      {
+        content_type: "game",
+        sort_by: "name:asc"
+      }
+  )
+  games.value = response.data.stories
+})
+
+
 
 </script >
 
 <style scoped lang="scss">
-#games_list {
+
+.list_container {
+  color: white;
   display: grid;
-  grid-template-columns: repeat( auto-fill, minmax(20rem, 20rem) );
-  justify-content: center;
-  grid-gap:2rem;
-  .game_preview {
-    display: block;
-    height: 20rem;
-    background-size: cover;
+  padding: 5rem 9rem;
+  grid-gap: 2.5rem;
+  @media (max-width: 50rem) {
+    padding: 2rem;
   }
 }
-
 </style>
