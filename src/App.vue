@@ -145,6 +145,17 @@ footer {
   right:5rem;
   z-index:22;
   position: absolute;
+  @media (max-width: 50rem) {
+    position: relative;
+    top: 0;
+    margin-top: 0;
+    margin-bottom: -4rem;
+    padding: 0 2rem;
+    right: 0;
+    h1 {
+      font-size:2.5rem;
+    }
+  }
 }
 
 h1, h2 {
@@ -154,9 +165,6 @@ h1, h2 {
     -webkit-text-stroke-color: white;
     @media (max-width: 80rem) {
       font-size: 4rem
-    }
-    @media (max-width: 50rem) {
-      display: none;
     }
   }
 

@@ -190,6 +190,13 @@ const otherArticles = computed(
 $red: rgb(192, 11, 11);
 $red-dark: rgb(142, 11, 11);
 
+
+.heading_container {
+  @media (max-width: 50rem) {
+    display: none;
+  }
+}
+
 .padding {
   background-color: $red;
   aspect-ratio: 22/9;

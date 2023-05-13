@@ -36,7 +36,7 @@ const content = computed(() => renderRichText(props.post.content.Content));
   padding: 5rem 9rem;
   grid-gap: 2.5rem;
   justify-items: left;
-  @media (max-width: 65rem) {
+  @media (max-width: 50rem) {
     padding: 2rem;
   }
 }
