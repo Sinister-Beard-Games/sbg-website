@@ -5,7 +5,8 @@
   </div>
   <div class="list_container">
     <div v-for="game in games" class="game_single" :style="`background-image: url(${game.content.cover_art_plain.filename})`">
-
+      <img class="logo" :src="game.content.logo.filename" :alt="game.name" />
+            <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
     </div>
   </div>
 </template>
