@@ -31,16 +31,11 @@
           @touchmove="horizontalScroll"
           :style="`grid-template-columns: repeat(${content.featured_games.length}, 15rem);`"
       >
-        <div
-            @click="handleGameClick(game.full_slug)" class="game_slide"
-            @mouseenter="setRolloverOpacity(0.3, index)"
-            @mouseleave="setRolloverOpacity(0, index)"
-            v-for="(game, index) in content.featured_games"
-            :key="index"
-            :style="`background-image: linear-gradient( rgba(255, 255, 255, ${rolloverOpacity[index]}), rgba(255, 255, 255, 0) ), url(${game.content.cover_art_plain.filename})`">
-            <img class="logo" :src="game.content.logo.filename" :alt="game.name" />
-            <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
-        </div>
+        <GameSlide
+          v-for="game in content.featured_games"
+          :game="game"
+          :activeClick="activeClick"
+        />
       </div>
     </div>
     <div class="news">
@@ -74,6 +69,7 @@ import {onMounted, ref, computed} from "vue";
 import HeroCell from "./HeroCell.vue";
 import {useRouter} from 'vue-router';
 import {renderRichText} from "@storyblok/vue";
+import GameSlide from "./GameSlide.vue";
 
 const content = ref(null)
 const current = ref(0)
@@ -115,16 +111,11 @@ const cycleHero = () => {
   )
 }
 
-
-const setRolloverOpacity = (opacity, index) => {
-  rolloverOpacity.value[index] = opacity
-}
-
 const slider = ref(null)
 let sliding = false;
 let startX;
 let scrollLeft;
-let activeClick = false
+const activeClick = ref(false)
 let clickTimeOut
 
 const horizontalScroll = (e) => {
@@ -142,10 +133,10 @@ const handleMouseDown = (e) => {
   const pageX = e.pageX ? e.pageX : Math.round(e.changedTouches[0].clientX)
   startX = pageX - slider.value.offsetLeft;
   scrollLeft = slider.value.scrollLeft;
-  activeClick = true
+  activeClick.value = true
   clickTimeOut = setTimeout(
       () => {
-        activeClick = false
+        activeClick.value = false
       }, 500
   )
 }
