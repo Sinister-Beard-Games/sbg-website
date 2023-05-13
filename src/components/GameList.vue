@@ -4,9 +4,9 @@
     <h1>{{content.name}}</h1>
   </div>
   <div class="list_container">
-    <div v-for="game in games" class="game_single" :style="`background-image: url(${game.content.cover_art_plain.filename})`">
+    <div @click="handleGameClick(game.slug)" v-for="game in games" class="game_single" :style="`background-image: url(${game.content.cover_art_plain.filename})`">
       <img class="logo" :src="game.content.logo.filename" :alt="game.name" />
-            <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
+      <img class="focus_image" :src="game.content.focus_image.filename" alt="featured game image" />
     </div>
   </div>
 </template>
@@ -14,8 +14,7 @@
 <script setup>
 
 import SimpleHero from "./SimpleHero.vue";
-import {computed, onMounted, ref} from "vue";
-import {renderRichText, useStoryblok} from "@storyblok/vue";
+import {onMounted, ref} from "vue";
 import StoryblokClient from "storyblok-js-client";
 
 const Storyblok = new StoryblokClient({
@@ -41,6 +40,19 @@ onMounted(async ()=>{
   )
   games.value = response.data.stories
 })
+
+let activeClick = true
+
+import {useRouter} from "vue-router";
+const router = useRouter()
+
+const handleGameClick = (path) => {
+  if(activeClick) {
+    router.push(path)
+  }
+}
+
+
 
 </script >
 
