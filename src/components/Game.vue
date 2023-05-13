@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="game_art">
-      <img @click="setScreenshot(game.cover_art.filename)" class="screenshot" :src="game.cover_art.filename" :alt="`Cover art from ${game.title}`" />
+      <img @click="setScreenshot(game.cover_art.filename)" class="screenshot" :src="game.cover_art.filename" :alt="`Cover art from ${props.game.name}`" />
       <img @click="setScreenshot(screenshot.filename)" class="screenshot" v-for="screenshot in game.screenshots" :src="screenshot.filename" :alt="`Example pages from ${game.title}`" />
     </div>
   </div>
@@ -39,7 +39,7 @@ const props = defineProps({
     required: true
   }
 })
-const game = props.game
+const game = props.game.content
 const description = computed(() => renderRichText(game.description));
 
 const setScreenshot = (v) => {

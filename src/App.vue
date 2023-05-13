@@ -70,7 +70,6 @@ html, body {
 .site_content {
   height: 100%;
   min-height: 100vh;
-  //max-width: 100vw;
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 1fr auto;
