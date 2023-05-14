@@ -3,7 +3,7 @@ $red-dark: rgb(142, 11, 11);
 $grey: rgb(48, 43, 43);
 $light-grey: rgb(68, 63, 63);
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap');
 
 html, body {
 
@@ -55,8 +55,22 @@ a {
     text-align: center;
     text-decoration: none;
     border-radius: 2rem;
-    font-weight: 800;
+    font-weight: 600;
     transition: background-color .25s ease-in-out;
+    &.secondary {
+      background-color: transparent;
+      border:1px solid white;
+    }
+    &.product {
+      text-transform: none;
+      cursor: pointer;
+      .reduced {
+        text-decoration: line-through;
+      }
+      span {
+        margin-left: .5rem;
+      }
+    }
     &:hover {
       background-color: $red-dark;
       color: white;

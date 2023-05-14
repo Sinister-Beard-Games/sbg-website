@@ -8,14 +8,15 @@
       <div class="game_description" v-html="description" />
       <div class="game_products">
         <div v-for="product in game.products">
-          <a class="button">
+          <a class="button product">
             {{product.description}}
             <span :class="{reduced: product.sales_price}">£{{product.price}}</span>
             <span v-if="product.sales_price">£{{product.sales_price}}</span></a>
         </div>
       </div>
-      <div>
-        <router-link class="button" to="/games/">&lt; All games</router-link>
+      <div class="buttons">
+        <router-link class="button secondary" to="/games/">&lt; All games</router-link>
+        <router-link to="/" class="button secondary">&lt;&lt; Home</router-link>
       </div>
     </div>
     <div class="game_art">
@@ -126,15 +127,10 @@ const clearOverlay = () => {
   }
 }
 
-a.button {
-      font-weight: 400;
-      text-transform: none;
-      cursor: pointer;
-      .reduced {
-        text-decoration: line-through;
-      }
-      span {
-        margin-left: .5rem;
-      }
-    }
+.buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: left;
+  grid-gap: 1rem;
+}
 </style>
