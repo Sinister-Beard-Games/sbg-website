@@ -8,7 +8,7 @@
       <div class="game_description" v-html="description" />
       <div class="game_products">
         <div v-for="product in game.products">
-          <a class="button product">
+          <a class="button product" @click="addToBasket(product)">
             {{product.description}}
             <span :class="{reduced: product.sales_price}">£{{product.price}}</span>
             <span v-if="product.sales_price">£{{product.sales_price}}</span></a>
@@ -33,6 +33,7 @@
 import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
 import GameHero from "@/components/games/GameHero.vue";
+import {useBasketStore} from "../stores/basketStore.js";
 
 const currentScreenshot = ref(null)
 const overlayVisible = ref(false)
@@ -53,6 +54,15 @@ const setScreenshot = (v) => {
 
 const clearOverlay = () => {
   overlayVisible.value = false
+}
+
+
+// Basket stuff
+
+const basket = useBasketStore()
+
+const addToBasket = (product) => {
+  basket.items.push(product)
 }
 
 </script>
