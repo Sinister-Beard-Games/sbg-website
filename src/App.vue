@@ -35,7 +35,6 @@ onMounted(
           {resolveRelations: ["site_settings.social_links", "site_settings.other_links"]}
       )
       content.value = response.value.content
-      console.log(content)
     }
 )
 

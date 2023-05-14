@@ -36,7 +36,6 @@ import {useRouter} from "vue-router";
 const router = useRouter()
 
 const handleGameClick = (path) => {
-  console.log("Boooooop")
   if(props.activeClick) {
     router.push("/" + path)
   }

@@ -26,7 +26,6 @@ const refreshPage = async () => {
   try {
     const response = await useStoryblok(route.path)
     content.value = response.value
-    console.log(content.value)
   }
   catch(e) {
     error.value = e

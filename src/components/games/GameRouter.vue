@@ -22,13 +22,11 @@ const route = useRoute()
 const refreshPage = async () => {
   const splitRoute = route.path.split("/").filter( route_element => route_element )
   listView.value = splitRoute[splitRoute.length-1] === "games"
-  console.log(listView.value)
   try {
     const response = await useStoryblok(
         route.path.replace(/^\/|\/$/g, '')
     )
     content.value = response.value
-    console.log(content.value.component)
   }
   catch(e) {
     error.value = e
