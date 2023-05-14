@@ -41,37 +41,22 @@
     <div class="news">
       <h2>{{ content.news_heading }}</h2>
       <div class="articles">
-        <div class="featured article">
-          <router-link :to="featuredArticle.full_slug" class="image"  :style="`background-image: url(${featuredArticle.content.FeaturedImage.filename})`" />
-
-
-          <h3>{{featuredArticle.name }}</h3>
-          <div v-html="renderRichText(featuredArticle.content.preview)" />
-          <router-link :to="featuredArticle.full_slug" class="button">
-             Read on, reader
-          </router-link>
-        </div>
+        <PostSlide class="featured article" :article="featuredArticle"/>
         <div class="other_articles">
-          <div class="article" v-for="article in otherArticles">
-            <div class="image" :style="`background-image: url(${article.content.FeaturedImage.filename})`" />
-            <h3>{{article.name }}</h3>
-            <div v-html="renderRichText(article.content.preview)" />
-            <router-link :to="article.full_slug" class="button">
-               More
-            </router-link>
-          </div>
+          <PostSlideSmall :article="article" v-for="article in otherArticles" />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import {useStoryblok} from "@storyblok/vue";
-import {onMounted, ref, computed} from "vue";
+import {renderRichText, useStoryblok} from "@storyblok/vue";
+import {computed, onMounted, ref} from "vue";
 import HeroCell from "@/components/homepage/HeroCell.vue";
 import {useRouter} from 'vue-router';
-import {renderRichText} from "@storyblok/vue";
-import GameSlide from "@/components/shared/GameSlide.vue";
+import GameSlide from "@/components/games/GameSlide.vue";
+import PostSlide from "@/components/posts/PostSlide.vue";
+import PostSlideSmall from "../posts/PostSlideSmall.vue";
 
 const content = ref(null)
 const current = ref(0)
@@ -165,18 +150,6 @@ const otherArticles = computed(
 
 </script>
 
-<style lang="scss">
-
-    .article {
-      &.featured {
-        p {
-          padding: 0;
-          margin:0;
-        }
-      }
-    }
-
-</style>
 
 <style lang="scss" scoped>
 
@@ -234,83 +207,20 @@ $red-dark: rgb(142, 11, 11);
 
 .news {
   .articles {
+
     padding: 0 8rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "featured other";
     grid-gap:2rem;
+    align-content: start;
     @media (max-width: 50rem) {
       padding: 0 2rem;
     }
     @media (max-width: 95rem) {
-      grid-template-areas: "featured featured"
-                           "other other";
-    }
-    p {
-      padding: 0;
-      margin:0;
-    }
-
-    .other_articles {
-      grid-area: other;
-      @media (max-width: 95rem) and (min-width: 60rem) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap:1rem;
-      }
-    }
-
-    .article {
-      color: white;
-      padding: 1rem;
-      display: grid;
-      justify-content: left;
-      justify-items: left;
-      align-content: start;
-      grid-template-areas: "heading"
-                           "content"
-                           "button";
-      &.featured {
-        grid-template-areas: "heading heading"
-                             "image content"
-                             "image button";
-        grid-template-columns: 1fr 1fr;
-        grid-gap:1.5rem;
-        grid-area: featured;
-        h3 {
-          font-size: 3rem;
-           @media (max-width: 60rem) {
-            font-size: 2rem
-          }
-        }
-        @media (max-width: 60rem) {
-          grid-template-areas: "heading"
-                               "image"
-                               "content"
-                               "button";
-          grid-template-columns: 1fr;
-        }
-      }
-      .image {
-        grid-area: image;
-        background-size: cover;
-        background-position: center;
-        width: 100%;
-        @media (max-width: 60rem) {
-          aspect-ratio: 16/9;
-        }
-      }
-      h3 {
-        grid-area: heading;
-        margin:0;
-        font-size: 2rem;
-      }
-      a {
-        grid-area: button;
-      }
-      div {
-        grid-area: content;
-      }
+      grid-template-columns: 1fr;
+      grid-template-areas: "featured"
+                           "other";
     }
   }
 

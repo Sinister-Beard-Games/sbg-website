@@ -1,50 +1,58 @@
 <template>
-  <pre>LIST COMPONENT</pre>
-
-<!--  <h1>{{ content.title }}</h1>-->
-<!--   <div v-html="description"/>-->
-
-<!--   <div id="games_list">-->
-<!--     <router-link :to="game.slug" v-for="game in content.attachments">-->
-<!--       <div-->
-<!--         class="game_preview"-->
-<!--         :style="`background-image: url('${coverPreview(game)}')`"-->
-<!--       >-->
-<!--         <h2>{{game.name}}</h2>-->
-<!--       </div>-->
-<!--     </router-link>-->
-<!--   </div>-->
+  <SimpleHero :featuredImage="props.content.content.hero_image.filename" />
+  <div class="heading_container">
+    <h1>{{content.name}}</h1>
+  </div>
+  <div class="list_container">
+    <pre>{{posts}}</pre>
+<!--      <GameSlide :game="game" v-for="game in games" :activeClick="true"/>-->
+  </div>
 </template>
 
-<!--<script setup>-->
-<!--import {computed} from "vue";-->
-<!--import {renderRichText} from "@storyblok/vue";-->
+<script setup>
 
-<!--const props = defineProps({-->
-<!--  content: {-->
-<!--    type: Object,-->
-<!--    required: true-->
-<!--  }-->
-<!--})-->
-<!--const content = props.content-->
-<!--const description = computed(() => renderRichText(content.content));-->
-<!--const coverPreview = (game) => {-->
-<!--  return game.content.cover_preview.filename ? game.content.cover_preview.filename : game.content.cover_full.filename-->
-<!--}-->
+import SimpleHero from "@/components/shared/SimpleHero.vue";
+import {onMounted, ref} from "vue";
+import StoryblokClient from "storyblok-js-client";
+import GameSlide from "@/components/games/GameSlide.vue";
 
-<!--</script >-->
+const Storyblok = new StoryblokClient({
+  accessToken: "On63krEoz1rtKmqF4QSMSAtt",
+});
 
-<!--<style scoped lang="scss">-->
-<!--#games_list {-->
-<!--  display: grid;-->
-<!--  grid-template-columns: repeat( auto-fill, minmax(20rem, 20rem) );-->
-<!--  justify-content: center;-->
-<!--  grid-gap:2rem;-->
-<!--  .game_preview {-->
-<!--    display: block;-->
-<!--    height: 20rem;-->
-<!--    background-size: cover;-->
-<!--  }-->
-<!--}-->
+const props = defineProps({
+  content: {
+    type: Object,
+    required: true
+  }
+})
 
-<!--</style>-->
+const posts = ref(null)
+
+onMounted(async ()=>{
+  const response = await Storyblok.get(
+      "cdn/stories",
+      {
+        content_type: "post",
+        sort_by: "name:asc"
+      }
+  )
+  posts.value = response.data.stories
+})
+
+</script>
+
+<style scoped lang="scss">
+
+.list_container {
+  color: white;
+  display: grid;
+  padding: 3rem 9rem;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)  );
+  @media (max-width: 50rem) {
+    padding: 2rem;
+  }
+}
+
+</style>

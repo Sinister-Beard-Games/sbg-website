@@ -13,7 +13,7 @@
 import SimpleHero from "@/components/shared/SimpleHero.vue";
 import {onMounted, ref} from "vue";
 import StoryblokClient from "storyblok-js-client";
-import GameSlide from "@/components/shared/GameSlide.vue";
+import GameSlide from "@/components/games/GameSlide.vue";
 
 const Storyblok = new StoryblokClient({
   accessToken: "On63krEoz1rtKmqF4QSMSAtt",

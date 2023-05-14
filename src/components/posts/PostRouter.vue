@@ -24,7 +24,7 @@ const refreshPage = async () => {
   const splitRoute = route.path.split("/").filter( route_element => route_element )
   listView.value = splitRoute[splitRoute.length-1] === "posts"
   try {
-    const response = await useStoryblok(route.path)
+    const response = await useStoryblok(route.path.replace(/^\/|\/$/g, ''))
     content.value = response.value
   }
   catch(e) {
