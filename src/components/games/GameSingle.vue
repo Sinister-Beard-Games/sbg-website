@@ -14,6 +14,9 @@
             <span v-if="product.sales_price">£{{product.sales_price}}</span></a>
         </div>
       </div>
+      <div>
+        <router-link class="button" to="/games/">&lt; All games</router-link>
+      </div>
     </div>
     <div class="game_art">
       <img @click="setScreenshot(game.cover_art.filename)" class="screenshot" :src="game.cover_art.filename" :alt="`Cover art from ${props.game.name}`" />
@@ -115,10 +118,15 @@ const clearOverlay = () => {
     grid-gap: 1rem;
     justify-content: left;
     margin-top: 2.5rem;
+    margin-bottom: 2rem;
     @media (max-width: 72rem) {
       grid-template-columns: 1fr;
     }
-    a {
+
+  }
+}
+
+a.button {
       font-weight: 400;
       text-transform: none;
       cursor: pointer;
@@ -129,6 +137,4 @@ const clearOverlay = () => {
         margin-left: .5rem;
       }
     }
-  }
-}
 </style>
