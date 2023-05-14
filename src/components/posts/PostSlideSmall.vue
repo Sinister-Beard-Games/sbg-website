@@ -3,7 +3,7 @@
     <div class="image" :style="`background-image: url(${article.content.FeaturedImage.filename})`" />
     <h3>{{article.name }}</h3>
     <div v-html="renderRichText(article.content.preview)" />
-    <router-link :to="article.full_slug" class="button">
+    <router-link :to="`/${article.full_slug}`" class="button">
        More
     </router-link>
   </div>

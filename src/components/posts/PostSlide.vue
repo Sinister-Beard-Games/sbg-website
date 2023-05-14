@@ -1,10 +1,10 @@
 <template>
 
   <div v-if="article" class="big_post">
-    <router-link :to="article.full_slug" class="image" :style="`background-image: url(${article.content.FeaturedImage.filename})`"/>
+    <router-link :to="`/${article.full_slug}`" class="image" :style="`background-image: url(${article.content.FeaturedImage.filename})`"/>
     <h3>{{article.name }}</h3>
     <div v-html="renderRichText(article.content.preview)" class="news_content"/>
-    <router-link :to="article.full_slug" class="button">
+    <router-link :to="`/${article.full_slug}`" class="button">
       Read on, reader
     </router-link>
   </div>
