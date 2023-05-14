@@ -8,4 +8,5 @@ export const useBasketStore = defineStore('basket', {
             ]
         }
     ),
+    persist: true
 })
