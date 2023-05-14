@@ -8,11 +8,15 @@
       <div class="game_description" v-html="description" />
       <div class="game_products">
         <div v-for="product in game.products">
-          <a class="button">
+          <a class="button product">
             {{product.description}}
             <span :class="{reduced: product.sales_price}">£{{product.price}}</span>
             <span v-if="product.sales_price">£{{product.sales_price}}</span></a>
         </div>
+      </div>
+      <div class="buttons">
+        <router-link class="button secondary" to="/games/">&lt; All games</router-link>
+        <router-link to="/" class="button secondary">&lt;&lt; Home</router-link>
       </div>
     </div>
     <div class="game_art">
@@ -28,7 +32,7 @@
 <script setup>
 import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
-import GameHero from "./GameHero.vue";
+import GameHero from "@/components/games/GameHero.vue";
 
 const currentScreenshot = ref(null)
 const overlayVisible = ref(false)
@@ -115,20 +119,18 @@ const clearOverlay = () => {
     grid-gap: 1rem;
     justify-content: left;
     margin-top: 2.5rem;
+    margin-bottom: 2rem;
     @media (max-width: 72rem) {
       grid-template-columns: 1fr;
     }
-    a {
-      font-weight: 400;
-      text-transform: none;
-      cursor: pointer;
-      .reduced {
-        text-decoration: line-through;
-      }
-      span {
-        margin-left: .5rem;
-      }
-    }
+
   }
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: left;
+  grid-gap: 1rem;
 }
 </style>

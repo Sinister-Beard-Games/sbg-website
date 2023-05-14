@@ -5,7 +5,10 @@
   </div>
   <div class="post_content">
     <div v-if="content" v-html="content" />
-    <router-link to="/" class="button">&lt;&lt; Home</router-link>
+    <div class="buttons">
+      <router-link to="/posts/" class="secondary button">&lt; All posts</router-link>
+      <router-link to="/" class="secondary button">&lt;&lt; Home</router-link>
+    </div>
   </div>
 
 
@@ -13,7 +16,7 @@
 <script setup>
 import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
-import PostHero from "./PostHero.vue";
+import PostHero from "@/components/shared/SimpleHero.vue";
 
 const props = defineProps({
   post: {
@@ -33,11 +36,18 @@ const content = computed(() => renderRichText(props.post.content.Content));
   color: white;
   display: grid;
   grid-template-columns: 1fr;
-  padding: 5rem 9rem;
+  padding: 3rem 9rem;
   grid-gap: 2.5rem;
   justify-items: left;
   @media (max-width: 50rem) {
     padding: 2rem;
   }
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: left;
+  grid-gap: 1rem;
 }
 </style>

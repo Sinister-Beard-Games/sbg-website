@@ -1,10 +1,10 @@
-import Posts from "@/components/Posts.vue"
+import PostRouter from "@/components/posts/PostRouter.vue";
 
 export default [
   {
     path: "/posts/:catchAll(.*)",
     name: "Posts",
-    component: Posts,
+    component: PostRouter,
     id: "posts",
   },
 ];
