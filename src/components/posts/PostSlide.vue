@@ -45,19 +45,17 @@ const props =defineProps( {
   justify-content: left;
   justify-items: left;
    align-content: start;
-   //align-items: start;
   .image {
+    border-radius: .5rem;
     grid-area: image;
     background-size: cover;
-    background-position: center;
+    background-position: 10% center;
     width: 100%;
     @media (max-width: 60rem) {
       aspect-ratio: 16/9;
     }
   }
-
   p {
-
     margin-block-end: 0 !important;
     margin-block-start: 0 !important;
   }

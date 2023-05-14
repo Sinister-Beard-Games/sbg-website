@@ -4,8 +4,7 @@
     <h1>{{content.name}}</h1>
   </div>
   <div class="list_container">
-    <pre>{{posts}}</pre>
-<!--      <GameSlide :game="game" v-for="game in games" :activeClick="true"/>-->
+    <PostSlide v-for="article in posts" :article="article" />
   </div>
 </template>
 
@@ -14,7 +13,7 @@
 import SimpleHero from "@/components/shared/SimpleHero.vue";
 import {onMounted, ref} from "vue";
 import StoryblokClient from "storyblok-js-client";
-import GameSlide from "@/components/games/GameSlide.vue";
+import PostSlide from "@/components/posts/PostSlide.vue";
 
 const Storyblok = new StoryblokClient({
   accessToken: "On63krEoz1rtKmqF4QSMSAtt",
@@ -34,7 +33,7 @@ onMounted(async ()=>{
       "cdn/stories",
       {
         content_type: "post",
-        sort_by: "name:asc"
+        sort_by: "published:asc"
       }
   )
   posts.value = response.data.stories
@@ -49,7 +48,10 @@ onMounted(async ()=>{
   display: grid;
   padding: 3rem 9rem;
   grid-gap: 2rem;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)  );
+  grid-template-columns: 1fr 1fr;
+  @media (max-width: 87.5rem) {
+    grid-template-columns: 1fr;
+  }
   @media (max-width: 50rem) {
     padding: 2rem;
   }
