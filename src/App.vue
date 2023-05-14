@@ -1,6 +1,6 @@
 <template>
   <div v-if="content" class="site_content">
-    <SiteHeader :logo="content.logo.filename" />
+    <SiteHeader :logo="content.logo.filename" :basket_logo="content.basket_logo.filename" />
     <div class="page_content">
       <router-view :key="route.path" />
     </div>
