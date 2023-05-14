@@ -1,10 +1,11 @@
-import Games from "@/components/Games.vue"
-
+import Games from "@/components/games/Games.vue";
 export default [
   {
-    path: "/games/:catchAll(.*)",
+    path: "/:catchAll(.*)",
     name: "Games",
     component: Games,
     id: "games",
   },
 ];
+
+

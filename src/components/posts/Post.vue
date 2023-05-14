@@ -13,7 +13,7 @@
 <script setup>
 import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
-import PostHero from "./SimpleHero.vue";
+import PostHero from "@/components/shared/SimpleHero.vue";
 
 const props = defineProps({
   post: {

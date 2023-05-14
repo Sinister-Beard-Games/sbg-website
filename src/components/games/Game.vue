@@ -28,7 +28,7 @@
 <script setup>
 import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
-import GameHero from "./GameHero.vue";
+import GameHero from "@/components/games/GameHero.vue";
 
 const currentScreenshot = ref(null)
 const overlayVisible = ref(false)

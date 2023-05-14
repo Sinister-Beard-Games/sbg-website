@@ -66,10 +66,10 @@
 <script setup>
 import {useStoryblok} from "@storyblok/vue";
 import {onMounted, ref, computed} from "vue";
-import HeroCell from "./HeroCell.vue";
+import HeroCell from "@/components/homepage/HeroCell.vue";
 import {useRouter} from 'vue-router';
 import {renderRichText} from "@storyblok/vue";
-import GameSlide from "./GameSlide.vue";
+import GameSlide from "@/components/shared/GameSlide.vue";
 
 const content = ref(null)
 const current = ref(0)

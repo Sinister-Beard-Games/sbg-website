@@ -7,13 +7,13 @@
 </template>
 
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {ref, watch} from "vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router"
-import FourOhFour from "@/components/FourOhFour.vue"
-import Loading from "@/components/Loading.vue"
-import PostList from "./PostList.vue";
-import Post from "./Post.vue";
+import FourOhFour from "@/components/shared/FourOhFour.vue"
+import Loading from "@/components/shared/Loading.vue"
+import PostList from "@/components/posts/PostList.vue";
+import Post from "@/components/posts/Post.vue";
 
 const listView = ref(false)
 const content = ref(null)

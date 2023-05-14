@@ -9,10 +9,10 @@
 import {onMounted, ref, watch} from "vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router"
-import Game from "@/components/Game.vue";
-import FourOhFour from "@/components/FourOhFour.vue"
-import Loading from "@/components/Loading.vue"
-import GameList from "@/components/GameList.vue";
+import Game from "@/components/games/Game.vue";
+import FourOhFour from "@/components/shared/FourOhFour.vue"
+import Loading from "@/components/shared/Loading.vue"
+import GameList from "@/components/games/GameList.vue";
 
 const listView = ref(false)
 const content = ref(null)
