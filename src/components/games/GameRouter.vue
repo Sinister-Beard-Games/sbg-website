@@ -1,17 +1,17 @@
 <template ref="game_container">
   <GameList :key="`list_${content._uid}`" v-if="content && listView" :content="content" />
-  <Game :key="`game_${content._uid}`" v-else-if="content" :game="content"/>
+  <GameSingle :key="`game_${content._uid}`" v-else-if="content" :game="content"/>
   <FourOhFour v-else-if="error" />
-  <Loading v-else />
+  <LoadingIndicator v-else />
 </template>
 
 <script setup>
-import {onMounted, ref, watch} from "vue";
+import {ref, watch} from "vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router"
-import Game from "@/components/games/Game.vue";
+import GameSingle from "@/components/games/GameSingle.vue";
 import FourOhFour from "@/components/shared/FourOhFour.vue"
-import Loading from "@/components/shared/Loading.vue"
+import LoadingIndicator from "@/components/shared/LoadingIndicator.vue"
 import GameList from "@/components/games/GameList.vue";
 
 const listView = ref(false)

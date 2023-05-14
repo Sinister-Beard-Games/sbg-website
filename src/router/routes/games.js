@@ -1,9 +1,9 @@
-import Games from "@/components/games/Games.vue";
+import GameRouter from "@/components/games/GameRouter.vue";
 export default [
   {
     path: "/:catchAll(.*)",
     name: "Games",
-    component: Games,
+    component: GameRouter,
     id: "games",
   },
 ];

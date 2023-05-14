@@ -1,9 +1,9 @@
 
 <template ref="posts_container">
   <PostList :key="`list_${content._uid}`" v-if="content && listView" :content="content" />
-  <Post :key="`post_${content._uid}`" v-else-if="content" :post="content"/>
+  <PostSingle :key="`post_${content._uid}`" v-else-if="content" :post="content"/>
   <FourOhFour v-else-if="error" />
-  <Loading v-else />
+  <LoadingIndicator v-else />
 </template>
 
 <script setup>
@@ -11,9 +11,9 @@ import {ref, watch} from "vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router"
 import FourOhFour from "@/components/shared/FourOhFour.vue"
-import Loading from "@/components/shared/Loading.vue"
+import LoadingIndicator from "@/components/shared/LoadingIndicator.vue"
 import PostList from "@/components/posts/PostList.vue";
-import Post from "@/components/posts/Post.vue";
+import PostSingle from "@/components/posts/PostSingle.vue";
 
 const listView = ref(false)
 const content = ref(null)
