@@ -42,7 +42,9 @@
       <h2>{{ content.news_heading }}</h2>
       <div class="articles">
         <div class="featured article">
-          <div class="image" :style="`background-image: url(${featuredArticle.content.FeaturedImage.filename})`" />
+          <router-link :to="featuredArticle.full_slug" class="image"  :style="`background-image: url(${featuredArticle.content.FeaturedImage.filename})`" />
+
+
           <h3>{{featuredArticle.name }}</h3>
           <div v-html="renderRichText(featuredArticle.content.preview)" />
           <router-link :to="featuredArticle.full_slug" class="button">

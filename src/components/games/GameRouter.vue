@@ -35,16 +35,7 @@ const refreshPage = async () => {
   }
 }
 
-watch(
-    () => route.path,
-    (currentState, prevState)=> {
-      console.log('Page refresh')
-      console.log({currentState})
-      console.log({prevState})
-      refreshPage()
-    },
-    { immediate: true }
-)
+refreshPage()
 
 </script>
 
