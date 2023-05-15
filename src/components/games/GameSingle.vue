@@ -14,6 +14,7 @@
             <span v-if="product.sales_price">£{{product.sales_price}}</span></a>
         </div>
       </div>
+      <NextSteps :visible="nextStepsVisible" :key="nextStepsKey"/>
       <div class="buttons">
         <router-link class="button secondary" to="/games/">&lt; All games</router-link>
         <router-link to="/" class="button secondary">&lt;&lt; Home</router-link>
@@ -34,6 +35,7 @@ import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
 import GameHero from "@/components/games/GameHero.vue";
 import {useBasketStore} from "../stores/basketStore.js";
+import NextSteps from "../basket/NextSteps.vue";
 
 const currentScreenshot = ref(null)
 const overlayVisible = ref(false)
@@ -44,6 +46,10 @@ const props = defineProps({
     required: true
   }
 })
+
+const nextStepsVisible = ref(false)
+const nextStepsKey = ref(Date.now())
+
 const game = props.game.content
 const description = computed(() => renderRichText(game.description));
 
@@ -63,6 +69,8 @@ const basket = useBasketStore()
 
 const addToBasket = (product) => {
   basket.items.push(product)
+  nextStepsVisible.value = true
+  nextStepsKey.value = Date.now()
 }
 
 </script>
