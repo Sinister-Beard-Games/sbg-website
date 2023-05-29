@@ -29,7 +29,7 @@ const props = defineProps({
     required: true
   }
 })
-import imagePath from '@/assets/green_stick.svg'
+// import imagePath from '@/assets/green_stick.svg'
 </script>
 
 <style scoped lang="scss">
@@ -63,7 +63,7 @@ import imagePath from '@/assets/green_stick.svg'
       background-repeat: no-repeat;
       background-position: center;
       display: inline-block;
-      background-image: url("/green_tick.svg");
+      //background-image: url("/green_tick.svg");
     }
   }
 
