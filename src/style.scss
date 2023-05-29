@@ -77,21 +77,6 @@ a {
     }
   }
 }
-header {
-  position: fixed;
-  z-index: 101;
-  .site_logo {
-    width: 6rem;
-    height: auto;
-
-    left:1.5rem;
-    position: absolute;
-  }
-  @media (max-width: 50rem) {
-      position: absolute;
-  }
-}
-
 
 footer {
   padding: 1rem;

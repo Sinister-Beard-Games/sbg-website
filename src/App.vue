@@ -1,10 +1,6 @@
 <template>
   <div v-if="content" class="site_content">
-    <header>
-      <router-link to="/">
-        <img :src="content.logo.filename" :alt="content.logo.alt" class="site_logo"/>
-      </router-link>
-    </header>
+    <SiteHeader :logo="content.logo.filename" :basket_logo="content.basket_logo.filename" />
     <div class="page_content">
       <router-view :key="route.path" />
     </div>
@@ -24,6 +20,7 @@ import {onMounted, ref, computed} from "vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router";
 const content = ref(null)
+import SiteHeader from "@/components/shared/SiteHeader.vue";
 
 const route = useRoute()
 
