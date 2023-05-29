@@ -11,7 +11,7 @@ pinia.use(piniaPluginPersistedstate)
 
 app
 .use(StoryblokVue, {
-  accessToken: "On63krEoz1rtKmqF4QSMSAtt",
+  accessToken: import.meta.env.VITE_STORYBLOK_TOKEN,
   use: [apiPlugin],
 })
 .use(router)
