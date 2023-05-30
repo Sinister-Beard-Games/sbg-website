@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 
-export const useBasketStore = defineStore('basket', {
+export const useProductsStore = defineStore('basket', {
     state: () => (
         {
-            items: [
+            basket: [
 
             ]
         }

@@ -34,7 +34,7 @@
 import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
 import GameHero from "@/components/games/GameHero.vue";
-import {useBasketStore} from "../../stores/basketStore.js";
+import {useProductsStore} from "../../stores/products.js";
 import NextSteps from "../basket/NextSteps.vue";
 
 const currentScreenshot = ref(null)
@@ -65,10 +65,10 @@ const clearOverlay = () => {
 
 // Basket stuff
 
-const basket = useBasketStore()
+const products = useProductsStore()
 
 const addToBasket = (product) => {
-  basket.items.push(product)
+  products.basket.push(product)
   nextStepsVisible.value = true
   nextStepsKey.value = Date.now()
 }

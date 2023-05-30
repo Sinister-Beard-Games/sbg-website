@@ -5,16 +5,16 @@
     </router-link>
     <router-link to="/basket" class="basket">
       <img :src="basket_logo" alt="Your basket" />
-      <a v-if="basket.items.length > 0" class="basket_count">{{basket.items.length}}</a>
+      <a v-if="products.basket.length > 0" class="basket_count">{{products.basket.length}}</a>
     </router-link>
   </header>
 </template>
 
 <script setup>
 
-import {useBasketStore} from "../../stores/basketStore.js";
+import {useProductsStore} from "../../stores/products.js";
 
-const basket = useBasketStore()
+const products = useProductsStore()
 
 const props = defineProps({
     logo: {
