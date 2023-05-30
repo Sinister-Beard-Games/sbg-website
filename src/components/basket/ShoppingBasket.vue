@@ -33,7 +33,7 @@
 <script setup>
 
 import {computed, ref} from "vue";
-import {useBasketStore} from "../stores/basketStore.js";
+import {useBasketStore} from "../../stores/basketStore.js";
 import SimpleHero from "@/components/shared/SimpleHero.vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router";

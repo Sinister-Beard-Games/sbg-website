@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import {useBasketStore} from "../stores/basketStore.js";
+import {useBasketStore} from "../../stores/basketStore.js";
 import {computed} from "vue";
 const basket = useBasketStore()
 const numberOfItems = computed(()=> {

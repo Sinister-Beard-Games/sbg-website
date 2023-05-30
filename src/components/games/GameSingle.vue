@@ -34,7 +34,7 @@
 import {computed, ref} from "vue";
 import {renderRichText} from "@storyblok/vue";
 import GameHero from "@/components/games/GameHero.vue";
-import {useBasketStore} from "../stores/basketStore.js";
+import {useBasketStore} from "../../stores/basketStore.js";
 import NextSteps from "../basket/NextSteps.vue";
 
 const currentScreenshot = ref(null)

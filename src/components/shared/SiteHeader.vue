@@ -12,7 +12,7 @@
 
 <script setup>
 
-import {useBasketStore} from "../stores/basketStore.js";
+import {useBasketStore} from "../../stores/basketStore.js";
 
 const basket = useBasketStore()
 
