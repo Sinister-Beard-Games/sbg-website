@@ -22,14 +22,14 @@
             <div class="adjust">
               <a class="round secondary button" @click="addAnother(item)">+</a>
               <a class="round secondary button" @click="remove(item)">-</a>
+               <button @click="testStockFunction(item)">Test stock function</button>
             </div>
           </td>
         </tr>
       </table>
     </div>
+
   </div>
-
-
 </template>
 
 <script setup>
@@ -93,7 +93,12 @@ const remove = (basketItem) => {
 }
 
 const addAnother = (item) => {
+  console.log(item)
   products.basket.push(item.item)
+}
+
+const testStockFunction = (item) => {
+  products.reduceStock(item.item, item.count);
 }
 
 

@@ -444,11 +444,6 @@ storyblok-js-client@^5.10.2:
   resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-5.10.3.tgz#54129469cbeaa61f9867306ec61d1c9d4842df63"
   integrity sha512-D/Uiv9Nw/u+o3GfiFZ3u82Nw1I73jyOihiaKsrWLpbYeL+paXGuq3QmqcxBffEqkrlMlTksoeyz4Kz/ngNAM7g==
 
-storyblok-js-client@^5.10.5:
-  version "5.10.5"
-  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-5.10.5.tgz#286835b009157afb6c038dbb2fefc49882b9793f"
-  integrity sha512-oqr0LbgObD1A6NWzKWXgsvFjLlPK2eJvQIAVpKNrv00teymykXaCdS+EL4d1SKcmHIT/o9I8pSvpjOg6F8tjfA==
-
 to-regex-range@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/to-regex-range/-/to-regex-range-5.0.1.tgz#1648c44aae7c8d988a326018ed72f5b4dd0392e4"

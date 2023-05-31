@@ -16,7 +16,7 @@ import StoryblokClient from "storyblok-js-client";
 import GameSlide from "@/components/games/GameSlide.vue";
 
 const Storyblok = new StoryblokClient({
-  accessToken: "On63krEoz1rtKmqF4QSMSAtt",
+  accessToken:  import.meta.env.VITE_STORYBLOK_TOKEN,
 });
 
 const props = defineProps({

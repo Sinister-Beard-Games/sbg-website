@@ -44,6 +44,10 @@ const props = defineProps({
   game: {
     type: Object,
     required: true
+  },
+  id: {
+    type: Number,
+    required: true
   }
 })
 
@@ -68,6 +72,7 @@ const clearOverlay = () => {
 const products = useProductsStore()
 
 const addToBasket = (product) => {
+  product.parentId = props.id
   products.basket.push(product)
   nextStepsVisible.value = true
   nextStepsKey.value = Date.now()

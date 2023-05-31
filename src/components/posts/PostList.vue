@@ -16,7 +16,7 @@ import StoryblokClient from "storyblok-js-client";
 import PostSlide from "@/components/posts/PostSlide.vue";
 
 const Storyblok = new StoryblokClient({
-  accessToken: "On63krEoz1rtKmqF4QSMSAtt",
+  accessToken:  import.meta.env.VITE_STORYBLOK_TOKEN,
 });
 
 const props = defineProps({

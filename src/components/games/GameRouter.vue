@@ -1,6 +1,6 @@
 <template ref="game_container">
   <GameList :key="`list_${content._uid}`" v-if="content && listView" :content="content" />
-  <GameSingle :key="`game_${content._uid}`" v-else-if="content" :game="content"/>
+  <GameSingle :key="`game_${content._uid}`" v-else-if="content" :game="content" :id="content.id"/>
   <FourOhFour v-else-if="error" />
   <LoadingIndicator v-else />
 </template>
@@ -27,6 +27,7 @@ const refreshPage = async () => {
         route.path.replace(/^\/|\/$/g, '')
     )
     content.value = response.value
+    console.log(response.value.id)
   }
   catch(e) {
     error.value = e
