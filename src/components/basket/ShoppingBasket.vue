@@ -1,39 +1,41 @@
 <template>
-  <SimpleHero :featuredImage="content.content.hero_image.filename" />
-  <div class="heading_container">
-    <h1>{{content.name}}</h1>
-  </div>
-  <div class="basket_container">
-    <table class="basket_items">
-      <tr>
-        <th>Item</th>
-        <th>Number</th>
-        <th>Cost</th>
-        <th>Total</th>
-        <th></th>
-      </tr>
-      <tr v-for="item in summarisedItems">
-        <td>{{item.item.description}}</td>
-        <td>{{item.count}}</td>
-        <td>£{{itemPrice(item)}}</td>
-        <td>£{{itemPrice(item) * item.count}}</td>
-        <td>
-          <div class="adjust">
-            <a class="round secondary button" @click="addAnother(item)">+</a>
-            <a class="round secondary button" @click="remove(item)">-</a>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </div>
+  <div v-if="content">
+    <SimpleHero :featuredImage="content.content.hero_image.filename" />
+    <div class="heading_container">
+      <h1>{{content.name}}</h1>
+    </div>
+    <div class="basket_container">
+      <table class="basket_items">
+        <tr>
+          <th>Item</th>
+          <th>Number</th>
+          <th>Cost</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+        <tr v-for="item in summarisedItems">
+          <td>{{item.item.description}}</td>
+          <td>{{item.count}}</td>
+          <td>£{{itemPrice(item)}}</td>
+          <td>£{{itemPrice(item) * item.count}}</td>
+          <td>
+            <div class="adjust">
+              <a class="round secondary button" @click="addAnother(item)">+</a>
+              <a class="round secondary button" @click="remove(item)">-</a>
+               <button @click="testStockFunction(item)">Test stock function</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-
+  </div>
 </template>
 
 <script setup>
 
 import {computed, ref} from "vue";
-import {useBasketStore} from "../stores/basketStore.js";
+import {useProductsStore} from "../../stores/products.js";
 import SimpleHero from "@/components/shared/SimpleHero.vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router";
@@ -55,13 +57,13 @@ const compare = ( a, b ) => {
   return 0;
 }
 
-const basket = useBasketStore()
+const products = useProductsStore()
 
 const summarisedItems = computed(
   () => {
     const items = {}
-    console.log(basket.items)
-    basket.items.forEach(
+    console.log(products.basket)
+    products.basket.forEach(
         (item) => {
           if(!items[item._uid]) {
             items[item._uid] = {
@@ -81,17 +83,22 @@ const summarisedItems = computed(
 
 const remove = (basketItem) => {
   console.log('remove')
-  for (let i=0; i < basket.items.length; i++) {
-    const item = basket.items[i]
+  for (let i=0; i < products.basket.length; i++) {
+    const item = products.basket[i]
     if(item._uid === basketItem.item._uid) {
-      basket.items.splice(i, 1)
+      products.basket.splice(i, 1)
       return
     }
   }
 }
 
 const addAnother = (item) => {
-  basket.items.push(item.item)
+  console.log(item)
+  products.basket.push(item.item)
+}
+
+const testStockFunction = (item) => {
+  products.reduceStock(item.item, item.count);
 }
 
 

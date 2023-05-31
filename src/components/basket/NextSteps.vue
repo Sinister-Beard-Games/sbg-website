@@ -13,16 +13,16 @@
 </template>
 
 <script setup>
-import {useBasketStore} from "../stores/basketStore.js";
+import {useProductsStore} from "../../stores/products.js";
 import {computed} from "vue";
-const basket = useBasketStore()
+const products = useProductsStore()
 const numberOfItems = computed(()=> {
-  return basket.items.length
+  return products.basket.length
 })
 const ess = computed(() => {
   return numberOfItems.value === 1 ? "" : "s"
 })
-const lastItem = basket.items[numberOfItems.value-1]
+const lastItem = products.basket[numberOfItems.value-1]
 const props = defineProps({
   "visible": {
     type: Boolean,
