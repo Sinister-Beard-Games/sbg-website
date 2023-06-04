@@ -7,11 +7,11 @@
     <div class="game_info">
       <div class="game_description" v-html="description" />
       <div class="game_products">
-        <div v-for="product in game.products">
+        <div v-for="product in inventory">
           <a class="button product" @click="addToBasket(product)">
             {{product.description}}
-            <span :class="{reduced: product.sales_price}">£{{product.price}}</span>
-            <span v-if="product.sales_price">£{{product.sales_price}}</span></a>
+            <span :class="{reduced: product.sales_price}">£{{product.price/100}}</span>
+            <span v-if="product.sales_price">£{{product.sales_price/100}}</span></a>
         </div>
       </div>
       <NextSteps :visible="nextStepsVisible" :key="nextStepsKey"/>
@@ -31,11 +31,12 @@
 
 </template>
 <script setup>
-import {computed, ref} from "vue";
+import {computed, ref, onMounted} from "vue";
 import {renderRichText} from "@storyblok/vue";
 import GameHero from "@/components/games/GameHero.vue";
 import {useProductsStore} from "../../stores/products.js";
 import NextSteps from "../basket/NextSteps.vue";
+import axios, {AxiosHeaders as Buffer} from "axios"
 
 const currentScreenshot = ref(null)
 const overlayVisible = ref(false)
@@ -56,6 +57,49 @@ const nextStepsKey = ref(Date.now())
 
 const game = props.game.content
 const description = computed(() => renderRichText(game.description));
+
+const inventory = ref([])
+
+const stripeApi = import.meta.env.VITE_STRIPE_API
+
+const auth = import.meta.env.VITE_STRIPE_PRODUCTS_KEY
+
+const getProducts = async (gameCode) => {
+  const endpoint = stripeApi + "products/search"
+  const response = await axios.get(
+    endpoint,
+    {
+      headers: { Authorization: `Bearer ${auth}` },
+      params: {
+        query: `metadata['game_code']:'${gameCode}'`
+      }
+    }
+  )
+  for (const product of response.data.data) {
+    const priceId = product.default_price
+    const endpoint = stripeApi + "prices/" + priceId
+    const response = await axios.get(
+      endpoint,
+      {
+        headers: { Authorization: `Bearer ${auth}` },
+      }
+    )
+    const item = {
+      product_id: product.id,
+      description: product.name,
+      price: response.data.unit_amount,
+      remaining_stock: product.metadata.remaining_stock
+    }
+
+    inventory.value.push(item)
+
+  }
+}
+
+onMounted(()=> {
+  getProducts('quietus')
+})
+
 
 const setScreenshot = (v) => {
   currentScreenshot.value = v

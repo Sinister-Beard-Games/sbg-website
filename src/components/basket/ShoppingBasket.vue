@@ -22,11 +22,14 @@
             <div class="adjust">
               <a class="round secondary button" @click="addAnother(item)">+</a>
               <a class="round secondary button" @click="remove(item)">-</a>
-               <button @click="testStockFunction(item)">Test stock function</button>
             </div>
           </td>
         </tr>
       </table>
+    </div>
+    <div class="checkOutContainer">
+      <p>Hello</p>
+      <StripeCheckout />
     </div>
 
   </div>
@@ -39,12 +42,15 @@ import {useProductsStore} from "../../stores/products.js";
 import SimpleHero from "@/components/shared/SimpleHero.vue";
 import {useStoryblok} from "@storyblok/vue";
 import {useRoute} from "vue-router";
+import { StripeCheckout } from '@vue-stripe/vue-stripe';
+
 
 const content = ref(null)
 const error = ref(null)
 
 const itemPrice = (item) => {
-  return item.item.sales_price ? item.item.sales_price : item.item.price
+  const pence =  item.item.sales_price ? item.item.sales_price : item.item.price
+  return pence/100
 }
 
 const compare = ( a, b ) => {
@@ -65,13 +71,13 @@ const summarisedItems = computed(
     console.log(products.basket)
     products.basket.forEach(
         (item) => {
-          if(!items[item._uid]) {
-            items[item._uid] = {
+          if(!items[item.product_id]) {
+            items[item.product_id] = {
               count: 1,
               item: item
             }
           } else {
-            items[item._uid].count++
+            items[item.product_id].count++
           }
         }
     )
