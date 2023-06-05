@@ -36,7 +36,7 @@ import {renderRichText} from "@storyblok/vue";
 import GameHero from "@/components/games/GameHero.vue";
 import {useProductsStore} from "../../stores/products.js";
 import NextSteps from "../basket/NextSteps.vue";
-import axios, {AxiosHeaders as Buffer} from "axios"
+import axios from "axios"
 
 const currentScreenshot = ref(null)
 const overlayVisible = ref(false)
@@ -97,7 +97,7 @@ const getProducts = async (gameCode) => {
 }
 
 onMounted(()=> {
-  getProducts('quietus')
+  getProducts(props.game.content.game_code)
 })
 
 
